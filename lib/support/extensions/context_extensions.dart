@@ -1,6 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 extension ContextExtension on BuildContext {
+  Future<T?> push<T>({required Widget page, Object? arguments}) {
+    return Navigator.push<T>(
+      this,
+      MaterialPageRoute(builder: (_) => page),
+    );
+  }
+
+  Future<T?> pushNamed<T>({required String routeName, Object? arguments}) {
+    return Navigator.pushNamed<T>(
+      this,
+      routeName,
+      arguments: arguments,
+    );
+  }
+
   Color get primaryColor {
     return Theme.of(this).colorScheme.primary;
   }

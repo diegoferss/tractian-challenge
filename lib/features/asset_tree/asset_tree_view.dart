@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_bloc.dart';
+import 'package:tractian/features/asset_tree/bloc/asset_tree_event.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_state.dart';
 import 'package:tractian/support/components/default_app_bar.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
@@ -22,6 +23,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
   void initState() {
     super.initState();
     bloc = ServiceLocator.get<AssetTreeBloc>(param1: widget.unit);
+    bloc.add(AssetTreeLoadAssetsRequested());
   }
 
   @override

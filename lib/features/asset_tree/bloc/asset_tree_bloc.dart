@@ -24,9 +24,18 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   FutureOr<void> _onLoadAssetsRequested(
     AssetTreeLoadAssetsRequested event,
     Emitter<AssetTreeState> emit,
-  ) {
+  ) async {
     emit(state.copyWith(viewState: ViewStateEnum.loading));
 
-    fetchUnitLocations(jsonPath: state.unit.locationsPath);
+    final result = await fetchUnitLocations(jsonPath: state.unit.locationsPath);
+
+    result.fold(
+      (locations) {
+        emit(state.copyWith(locations: locations, viewState: ViewStateEnum.success));
+      },
+      (exception) {
+        // TODO: Tratar o erro ao mapear os dados
+      },
+    );
   }
 }

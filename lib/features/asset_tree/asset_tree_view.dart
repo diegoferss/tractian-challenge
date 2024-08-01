@@ -34,6 +34,35 @@ class _AssetTreeViewState extends State<AssetTreeView> {
       builder: (_, state) {
         return Scaffold(
           appBar: DefaultAppBar(title: state.unit.title),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const Divider(height: 12),
+              Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  itemCount: state.locations.length,
+                  itemBuilder: (_, index) {
+                    return ExpansionTile(
+                      title: Text(state.locations[index].name),
+                    );
+                  },
+                  separatorBuilder: (_, index) {
+                    return const SizedBox(height: 20);
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

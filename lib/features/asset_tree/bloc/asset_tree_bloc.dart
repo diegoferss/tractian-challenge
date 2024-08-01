@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tractian/features/adapters/unifier_adapter.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_event.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_state.dart';
 import 'package:tractian/features/asset_tree/use_cases/fetch_unit_locations.dart';
@@ -27,14 +28,47 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   ) async {
     emit(state.copyWith(viewState: ViewStateEnum.loading));
 
+    await _getLocations(emit);
+
+    if (state.viewState == ViewStateEnum.error) {
+      return;
+    }
+
+    await _getAssets(emit);
+
+    if (state.viewState == ViewStateEnum.error) {
+      return;
+    }
+
+    final result = UnifierAdapter.unifyAssets(locations: state.locations, assets: state.assets);
+
+    emit(state.copyWith(locations: result.locations, assets: result.assets));
+  }
+
+  FutureOr<void> _getLocations(Emitter<AssetTreeState> emit) async {
     final result = await fetchUnitLocations(jsonPath: state.unit.locationsPath);
 
     result.fold(
       (locations) {
-        emit(state.copyWith(locations: locations, viewState: ViewStateEnum.success));
+        emit(state.copyWith(locations: locations));
       },
       (exception) {
         // TODO: Tratar o erro ao mapear os dados
+        emit(state.copyWith(viewState: ViewStateEnum.error));
+      },
+    );
+  }
+
+  FutureOr<void> _getAssets(Emitter<AssetTreeState> emit) async {
+    final result = await fetchUnitAssets(jsonPath: state.unit.assetsPath);
+
+    result.fold(
+      (assets) {
+        emit(state.copyWith(assets: assets, viewState: ViewStateEnum.success));
+      },
+      (exception) {
+        // TODO: Tratar o erro ao mapear os dados
+        emit(state.copyWith(viewState: ViewStateEnum.error));
       },
     );
   }

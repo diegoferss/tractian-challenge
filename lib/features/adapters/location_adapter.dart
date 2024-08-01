@@ -12,20 +12,6 @@ class LocationAdapter {
   }
 
   static List<Location> fromMaps(List<dynamic> maps) {
-    final locations = maps.map((map) => fromMap(map)).toList();
-    final primaryLocations = <Location>[];
-    final locationMaps = {for (final location in locations) location.id: location};
-
-    for (final location in locations) {
-      final parentId = location.parentId;
-
-      if (parentId == null) {
-        primaryLocations.add(location);
-      } else {
-        locationMaps[parentId]?.subLocations.add(location);
-      }
-    }
-
-    return primaryLocations;
+    return maps.map((map) => fromMap(map)).toList();
   }
 }

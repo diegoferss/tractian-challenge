@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tractian/features/adapters/unifier_adapter.dart';
+import 'package:tractian/adapters/unifier_adapter.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_event.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_state.dart';
 import 'package:tractian/features/asset_tree/use_cases/fetch_unit_locations.dart';

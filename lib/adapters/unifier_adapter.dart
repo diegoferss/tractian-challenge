@@ -1,7 +1,7 @@
 // TODO: Remover desse arquivo e colocar no utils
 import 'package:tractian/features/asset_tree/models/location.dart';
 
-import '../asset_tree/models/asset.dart';
+import '../features/asset_tree/models/asset.dart';
 
 typedef UnifiedAssets = ({List<Location> locations, List<Asset> assets});
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:either_dart/either.dart';
-import 'package:tractian/features/adapters/location_adapter.dart';
+import 'package:tractian/adapters/location_adapter.dart';
 import 'package:tractian/support/services/service_locator/json_reader.dart';
 import 'package:tractian/support/utils/typedefs.dart';
 

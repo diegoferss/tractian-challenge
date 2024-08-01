@@ -24,6 +24,7 @@ class AssetTreeModule extends AppModule {
       return AssetTreeBloc(
         unit: unit,
         fetchUnitAssets: ServiceLocator.get<FetchUnitAssets>(),
+        fetchUnitLocations: ServiceLocator.get<FetchUnitLocations>(),
       );
     });
   }

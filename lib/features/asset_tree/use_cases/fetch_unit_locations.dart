@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:tractian/features/adapters/location_adapter.dart';
 import 'package:tractian/support/services/service_locator/json_reader.dart';
 
 abstract class FetchUnitLocations {
@@ -12,9 +13,10 @@ class FetchUnitLocationsImpl extends FetchUnitLocations {
   FetchUnitLocationsImpl({required this.jsonReader});
 
   @override
-  FutureOr<void> call({required String jsonPath}) {
+  FutureOr<void> call({required String jsonPath}) async {
     try {
-      final data = jsonReader.read(path: jsonPath);
+      final data = await jsonReader.read(path: jsonPath);
+      final locations = LocationAdapter.fromMaps(data);
     } on Error catch (_) {
       // TODO: Tratar o erro ao mapear os dados
     }

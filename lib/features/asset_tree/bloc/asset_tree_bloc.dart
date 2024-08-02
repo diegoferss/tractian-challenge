@@ -22,6 +22,7 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
     required this.unifyAssets,
   }) : super(AssetTreeState(unit: unit)) {
     on<AssetTreeLoadAssetsRequested>(_onLoadAssetsRequested);
+    on<AssetTreeSearchRequested>(_onSearchRequested);
   }
 
   FutureOr<void> _onLoadAssetsRequested(
@@ -69,5 +70,12 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
         emit(state.copyWith(viewState: ViewStateEnum.error));
       },
     );
+  }
+
+  FutureOr<void> _onSearchRequested(
+    AssetTreeSearchRequested event,
+    Emitter<AssetTreeState> emit,
+  ) {
+    emit(state.copyWith(search: event.search));
   }
 }

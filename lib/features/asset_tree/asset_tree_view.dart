@@ -33,48 +33,62 @@ class _AssetTreeViewState extends State<AssetTreeView> {
       listener: _viewEventsListener,
       bloc: bloc,
       builder: (_, state) {
-        return Scaffold(
-          appBar: DefaultAppBar(title: state.unit.title),
-          body: CustomScrollView(
-            slivers: [
-              SliverList.list(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(12),
+        return GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Scaffold(
+            appBar: DefaultAppBar(title: state.unit.title),
+            body: CustomScrollView(
+              slivers: [
+                SliverList.list(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                      child: TextField(
+                        onChanged: (search) => bloc.add(AssetTreeSearchRequested(search: search)),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          hintText: 'Buscar ativo ou local',
+                          prefixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
                     ),
+                    const Divider(height: 12),
+                  ],
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  sliver: SliverList.separated(
+                    itemCount: state.locations.length,
+                    itemBuilder: (_, index) {
+                      return ExpandableTile(component: state.locations[index]);
+                    },
+                    separatorBuilder: (_, index) {
+                      return const SizedBox(height: 20);
+                    },
                   ),
-                  const Divider(height: 12),
-                ],
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                sliver: SliverList.separated(
-                  itemCount: state.locations.length,
-                  itemBuilder: (_, index) {
-                    return ExpandableTile(component: state.locations[index]);
-                  },
-                  separatorBuilder: (_, index) {
-                    return const SizedBox(height: 20);
-                  },
                 ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                sliver: SliverList.separated(
-                  itemCount: state.assets.length,
-                  itemBuilder: (_, index) {
-                    return ExpandableTile(component: state.assets[index]);
-                  },
-                  separatorBuilder: (_, index) {
-                    return const SizedBox(height: 20);
-                  },
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  sliver: SliverList.separated(
+                    itemCount: state.assets.length,
+                    itemBuilder: (_, index) {
+                      return ExpandableTile(component: state.assets[index]);
+                    },
+                    separatorBuilder: (_, index) {
+                      return const SizedBox(height: 20);
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

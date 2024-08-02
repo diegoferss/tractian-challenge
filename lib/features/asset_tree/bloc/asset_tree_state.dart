@@ -8,12 +8,14 @@ class AssetTreeState {
   final ViewStateEnum viewState;
   final List<Location> locations;
   final List<Asset> assets;
+  final String search;
 
   AssetTreeState({
     required this.unit,
     this.viewState = ViewStateEnum.initial,
     this.locations = const [],
     this.assets = const [],
+    this.search = '',
   });
 
   AssetTreeState copyWith({
@@ -21,12 +23,14 @@ class AssetTreeState {
     ViewStateEnum? viewState,
     List<Location>? locations,
     List<Asset>? assets,
+    String? search,
   }) {
     return AssetTreeState(
       unit: unit ?? this.unit,
       viewState: viewState ?? this.viewState,
       locations: locations ?? this.locations,
       assets: assets ?? this.assets,
+      search: search ?? this.search,
     );
   }
 }

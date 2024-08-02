@@ -97,7 +97,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                   ),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
                   sliver: SliverList.separated(
                     itemCount: state.assets.length,
                     itemBuilder: (_, index) {

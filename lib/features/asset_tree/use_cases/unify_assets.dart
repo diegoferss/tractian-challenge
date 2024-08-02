@@ -1,24 +1,22 @@
-// TODO: Remover desse arquivo e colocar no utils
-import 'package:tractian/features/asset_tree/models/location.dart';
-
-import '../features/asset_tree/models/asset.dart';
+import '../models/asset.dart';
+import '../models/location.dart';
 
 typedef UnifiedAssets = ({List<Location> locations, List<Asset> assets});
 
-class UnifierAdapter {
-  UnifierAdapter._();
+abstract class UnifyAssets {
+  UnifiedAssets call({required UnifiedAssets assets});
+}
 
-  static UnifiedAssets unifyAssets({
-    required List<Location> locations,
-    required List<Asset> assets,
-  }) {
+class UnifyAssetsImpl extends UnifyAssets {
+  @override
+  UnifiedAssets call({required UnifiedAssets assets}) {
     final primaryLocations = <Location>[];
-    final locationMaps = {for (final location in locations) location.id: location};
+    final locationMaps = {for (final location in assets.locations) location.id: location};
 
     final primaryAssets = <Asset>[];
-    final assetMaps = {for (final asset in assets) asset.id: asset};
+    final assetMaps = {for (final asset in assets.assets) asset.id: asset};
 
-    for (final location in locations) {
+    for (final location in assets.locations) {
       final parentId = location.parentId;
 
       if (parentId == null) {
@@ -28,7 +26,7 @@ class UnifierAdapter {
       }
     }
 
-    for (final asset in assets) {
+    for (final asset in assets.assets) {
       final Asset(:parentId, :locationId) = asset;
 
       if (parentId == null && locationId == null) {

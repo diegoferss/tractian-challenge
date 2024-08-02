@@ -4,7 +4,9 @@ import 'package:tractian/features/asset_tree/bloc/asset_tree_bloc.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_event.dart';
 import 'package:tractian/features/asset_tree/bloc/asset_tree_state.dart';
 import 'package:tractian/features/asset_tree/components/expandable_tile.dart';
+import 'package:tractian/features/asset_tree/components/filter_option.dart';
 import 'package:tractian/support/components/default_app_bar.dart';
+import 'package:tractian/support/enums/filter_option_enum.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
 import 'package:tractian/support/services/service_locator/service_locator.dart';
 
@@ -44,7 +46,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                 SliverList.list(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                      padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
                       child: TextField(
                         onChanged: (search) => bloc.add(AssetTreeSearchRequested(search: search)),
                         decoration: InputDecoration(
@@ -60,7 +62,26 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                         ),
                       ),
                     ),
-                    const Divider(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+                      child: Wrap(
+                        spacing: 12,
+                        runSpacing: 8,
+                        children: FilterOptionEnum.values.map((filter) {
+                          return GestureDetector(
+                            onTap: () => bloc.add(AssetTreeFilterOptionRequested(filterOption: filter)),
+                            child: FilterOption(
+                              filterOption: filter,
+                              isSelected: state.isFilterOptionSelected(filter),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    Divider(
+                      height: 12,
+                      color: Colors.grey[200],
+                    ),
                   ],
                 ),
                 SliverPadding(

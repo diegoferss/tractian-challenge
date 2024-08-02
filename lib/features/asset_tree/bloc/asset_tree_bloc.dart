@@ -23,6 +23,7 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   }) : super(AssetTreeState(unit: unit)) {
     on<AssetTreeLoadAssetsRequested>(_onLoadAssetsRequested);
     on<AssetTreeSearchRequested>(_onSearchRequested);
+    on<AssetTreeFilterOptionRequested>(_onFilterOptionRequested);
   }
 
   FutureOr<void> _onLoadAssetsRequested(
@@ -77,5 +78,12 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
     Emitter<AssetTreeState> emit,
   ) {
     emit(state.copyWith(search: event.search));
+  }
+
+  FutureOr<void> _onFilterOptionRequested(
+    AssetTreeFilterOptionRequested event,
+    Emitter<AssetTreeState> emit,
+  ) {
+    emit(state.copyWith(currentFilterOption: event.filterOption));
   }
 }

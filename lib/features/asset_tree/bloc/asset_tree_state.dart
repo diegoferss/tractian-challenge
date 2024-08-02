@@ -1,5 +1,6 @@
 import 'package:tractian/features/asset_tree/models/asset.dart';
 import 'package:tractian/features/asset_tree/models/location.dart';
+import 'package:tractian/support/enums/filter_option_enum.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
 import 'package:tractian/support/enums/view_state_enum.dart';
 
@@ -9,6 +10,7 @@ class AssetTreeState {
   final List<Location> locations;
   final List<Asset> assets;
   final String search;
+  final FilterOptionEnum? currentFilterOption;
 
   AssetTreeState({
     required this.unit,
@@ -16,6 +18,7 @@ class AssetTreeState {
     this.locations = const [],
     this.assets = const [],
     this.search = '',
+    this.currentFilterOption,
   });
 
   AssetTreeState copyWith({
@@ -24,6 +27,7 @@ class AssetTreeState {
     List<Location>? locations,
     List<Asset>? assets,
     String? search,
+    FilterOptionEnum? currentFilterOption,
   }) {
     return AssetTreeState(
       unit: unit ?? this.unit,
@@ -31,6 +35,22 @@ class AssetTreeState {
       locations: locations ?? this.locations,
       assets: assets ?? this.assets,
       search: search ?? this.search,
+      currentFilterOption: currentFilterOption ?? this.currentFilterOption,
     );
+  }
+
+  AssetTreeState removeFilterOption() {
+    return AssetTreeState(
+      unit: unit,
+      viewState: viewState,
+      locations: locations,
+      assets: assets,
+      search: search,
+      currentFilterOption: null,
+    );
+  }
+
+  bool isFilterOptionSelected(FilterOptionEnum filterOption) {
+    return filterOption == currentFilterOption;
   }
 }

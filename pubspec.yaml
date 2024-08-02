@@ -33,6 +33,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/
     - data/apex_unit/
     - data/jaguar_unit/
     - data/tobias_unit/

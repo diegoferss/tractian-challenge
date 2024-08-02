@@ -34,7 +34,7 @@ class UnifyAssetsImpl extends UnifyAssets {
       } else if (parentId != null) {
         assetMaps[parentId]?.subAssets.add(asset);
       } else if (locationId != null) {
-        locationMaps[locationId]?.assets.add(asset);
+        locationMaps[locationId]?.subAssets.add(asset);
       }
     }
 

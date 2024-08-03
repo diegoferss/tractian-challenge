@@ -1,10 +1,10 @@
-abstract class Component {
+abstract class BaseItem {
   final String id;
   final String name;
   final String? parentId;
-  List<Component> get subComponents;
+  List<BaseItem> get baseItems;
 
-  Component({
+  BaseItem({
     required this.id,
     required this.name,
     required this.parentId,

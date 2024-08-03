@@ -8,11 +8,13 @@ class ExpandableTile extends StatelessWidget {
   final BaseItem baseItem;
   final FilterOptionEnum? filterOption;
   final String search;
+  final bool isAssetPathExpanded;
 
   const ExpandableTile({
     super.key,
     required this.baseItem,
     required this.search,
+    required this.isAssetPathExpanded,
     this.filterOption,
   });
 
@@ -44,9 +46,10 @@ class ExpandableTile extends StatelessWidget {
     }
 
     return ExpansionTile(
+      key: ValueKey("${baseItem.id}$isAssetPathExpanded"),
       shape: const Border(),
       childrenPadding: const EdgeInsets.only(left: 20),
-      initiallyExpanded: true,
+      initiallyExpanded: isAssetPathExpanded,
       leading: Image.asset(baseItem.icon),
       title: Text(
         baseItem.name,
@@ -57,6 +60,7 @@ class ExpandableTile extends StatelessWidget {
         return ExpandableTile(
           baseItem: subBaseItem,
           filterOption: filterOption,
+          isAssetPathExpanded: isAssetPathExpanded,
           search: search,
         );
       }).toList(),

@@ -75,7 +75,7 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
     AssetTreeSearchRequested event,
     Emitter<AssetTreeState> emit,
   ) {
-    emit(state.copyWith(search: event.search));
+    emit(state.copyWith(search: event.search, isAssetPathExpanded: true));
   }
 
   FutureOr<void> _onFilterOptionRequested(
@@ -85,7 +85,7 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
     if (state.currentFilterOption == event.filterOption) {
       emit(state.removeFilterOption());
     } else {
-      emit(state.copyWith(currentFilterOption: event.filterOption));
+      emit(state.copyWith(currentFilterOption: event.filterOption, isAssetPathExpanded: true));
     }
   }
 }

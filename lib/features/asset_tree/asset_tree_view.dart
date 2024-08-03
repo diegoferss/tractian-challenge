@@ -172,6 +172,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
         return ExpandableTile(
           baseItem: state.baseItems[index],
           search: state.search,
+          isAssetPathExpanded: state.isAssetPathExpanded,
           filterOption: state.currentFilterOption,
         );
       },

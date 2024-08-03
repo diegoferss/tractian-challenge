@@ -12,6 +12,7 @@ class AssetTreeState {
   final List<Location> locations;
   final List<Asset> assets;
   final String search;
+  final bool isAssetPathExpanded;
   final FilterOptionEnum? currentFilterOption;
 
   AssetTreeState({
@@ -20,6 +21,7 @@ class AssetTreeState {
     this.locations = const [],
     this.assets = const [],
     this.search = '',
+    this.isAssetPathExpanded = false,
     this.currentFilterOption,
   });
 
@@ -29,6 +31,7 @@ class AssetTreeState {
     List<Location>? locations,
     List<Asset>? assets,
     String? search,
+    bool? isAssetPathExpanded,
     FilterOptionEnum? currentFilterOption,
   }) {
     return AssetTreeState(
@@ -37,6 +40,7 @@ class AssetTreeState {
       locations: locations ?? this.locations,
       assets: assets ?? this.assets,
       search: search ?? this.search,
+      isAssetPathExpanded: isAssetPathExpanded ?? this.isAssetPathExpanded,
       currentFilterOption: currentFilterOption ?? this.currentFilterOption,
     );
   }
@@ -48,6 +52,7 @@ class AssetTreeState {
       locations: locations,
       assets: assets,
       search: search,
+      isAssetPathExpanded: isAssetPathExpanded,
       currentFilterOption: null,
     );
   }

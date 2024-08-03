@@ -32,8 +32,6 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   ) async {
     emit(state.copyWith(viewState: ViewStateEnum.loading));
 
-    await Future.delayed(const Duration(seconds: 4));
-
     await _getLocations(emit);
 
     if (state.viewState == ViewStateEnum.error) return;
@@ -55,7 +53,6 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
         emit(state.copyWith(locations: locations));
       },
       (exception) {
-        // TODO: Tratar o erro ao mapear os dados
         emit(state.copyWith(viewState: ViewStateEnum.error));
       },
     );
@@ -69,7 +66,6 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
         emit(state.copyWith(assets: assets, viewState: ViewStateEnum.success));
       },
       (exception) {
-        // TODO: Tratar o erro ao mapear os dados
         emit(state.copyWith(viewState: ViewStateEnum.error));
       },
     );

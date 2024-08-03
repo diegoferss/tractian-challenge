@@ -32,6 +32,8 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   ) async {
     emit(state.copyWith(viewState: ViewStateEnum.loading));
 
+    await Future.delayed(const Duration(seconds: 4));
+
     await _getLocations(emit);
 
     if (state.viewState == ViewStateEnum.error) return;

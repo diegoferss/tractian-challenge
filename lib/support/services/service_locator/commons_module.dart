@@ -1,4 +1,4 @@
-import 'package:tractian/support/services/service_locator/json_reader.dart';
+import 'package:tractian/support/services/json_reader.dart';
 import 'package:tractian/support/services/service_locator/service_locator.dart';
 
 import 'app_module.dart';

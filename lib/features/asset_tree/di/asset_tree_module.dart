@@ -3,7 +3,7 @@ import 'package:tractian/features/asset_tree/use_cases/fetch_unit_assets.dart';
 import 'package:tractian/features/asset_tree/use_cases/fetch_unit_locations.dart';
 import 'package:tractian/features/asset_tree/use_cases/unify_assets.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
-import 'package:tractian/support/services/service_locator/json_reader.dart';
+import 'package:tractian/support/services/json_reader.dart';
 import 'package:tractian/support/services/service_locator/service_locator.dart';
 
 import '../../../support/services/service_locator/app_module.dart';

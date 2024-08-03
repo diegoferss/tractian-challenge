@@ -91,6 +91,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                     itemBuilder: (_, index) {
                       return ExpandableTile(
                         component: state.components[index],
+                        search: state.search,
                         filterOption: state.currentFilterOption,
                       );
                     },

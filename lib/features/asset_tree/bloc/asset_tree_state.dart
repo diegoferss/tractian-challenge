@@ -59,6 +59,9 @@ class AssetTreeState {
   List<Component> get components {
     final mergedComponents = <Component>[...locations, ...assets];
 
-    return mergedComponents.filteredComponents(filterOption: currentFilterOption);
+    return mergedComponents.finalComponents(
+      filterOption: currentFilterOption,
+      search: search,
+    );
   }
 }

@@ -7,17 +7,20 @@ import 'package:tractian/support/extensions/component_extensions.dart';
 class ExpandableTile extends StatelessWidget {
   final Component component;
   final FilterOptionEnum? filterOption;
+  final String search;
 
   const ExpandableTile({
     super.key,
     required this.component,
+    required this.search,
     this.filterOption,
   });
 
   @override
   Widget build(BuildContext context) {
-    final subComponents = component.subComponents.filteredComponents(
+    final subComponents = component.subComponents.finalComponents(
       filterOption: filterOption,
+      search: search,
     );
 
     if (subComponents.isEmpty) {
@@ -54,6 +57,7 @@ class ExpandableTile extends StatelessWidget {
         return ExpandableTile(
           component: c,
           filterOption: filterOption,
+          search: search,
         );
       }).toList(),
     );

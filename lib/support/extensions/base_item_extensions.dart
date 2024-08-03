@@ -7,15 +7,30 @@ extension BaseItemExtensions on List<BaseItem> {
   List<BaseItem> finalBaseItems({FilterOptionEnum? filterOption, String search = ''}) {
     final baseItems = filteredBaseItems(filterOption: filterOption);
 
-    return baseItems.searchedBaseItems(search: search);
+    return baseItems.searchedBaseItems(search: search, filter: filterOption);
   }
 
-  List<BaseItem> searchedBaseItems({String search = ''}) {
-    if (search.isEmpty) return this;
+  List<BaseItem> searchedBaseItems({String search = '', FilterOptionEnum? filter}) {
+    if (search.isEmpty || isEmpty) return this;
 
-    return where((baseItem) {
-      return _hasSearchTerm(baseItem, search);
+    final searchedItems = where((baseItem) {
+      return _hasSearchTerm(baseItem, search, filter);
     }).toList();
+
+    if (searchedItems.isEmpty && first.hasParent) return this;
+
+    return searchedItems;
+  }
+
+  bool _hasSearchTerm(BaseItem baseItem, String search, FilterOptionEnum? filter) {
+    final isSearchedBaseItem = baseItem.name.toLowerCase().contains(search.toLowerCase());
+    final hasAsset = filter == null || _hasAsset(baseItem, filter);
+
+    if (isSearchedBaseItem && hasAsset) return true;
+
+    return baseItem.subBaseItems.any((subBaseItem) {
+      return _hasSearchTerm(subBaseItem, search, filter);
+    });
   }
 
   List<BaseItem> filteredBaseItems({FilterOptionEnum? filterOption}) {
@@ -36,17 +51,6 @@ extension BaseItemExtensions on List<BaseItem> {
 
     return baseItem.subBaseItems.any((subBaseItem) {
       return _hasAsset(subBaseItem, filter);
-    });
-  }
-
-  bool _hasSearchTerm(BaseItem baseItems, String search) {
-    final isSearchedBaseItem = baseItems.name.toLowerCase().contains(search.toLowerCase());
-
-    if (isSearchedBaseItem) return true;
-    if (!isSearchedBaseItem && baseItems.subBaseItems.isEmpty) return false;
-
-    return baseItems.subBaseItems.any((subBaseItem) {
-      return _hasSearchTerm(subBaseItem, search);
     });
   }
 }

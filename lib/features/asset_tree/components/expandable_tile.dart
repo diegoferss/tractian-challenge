@@ -20,7 +20,10 @@ class ExpandableTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subBaseItems = baseItem.subBaseItems.filteredBaseItems(filterOption: filterOption);
+    final subBaseItems = baseItem.subBaseItems.finalBaseItems(
+      filterOption: filterOption,
+      search: search,
+    );
 
     if (subBaseItems.isEmpty) {
       return ListTile(

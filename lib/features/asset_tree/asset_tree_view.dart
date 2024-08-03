@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tractian/features/asset_tree/bloc/asset_tree_bloc.dart';
-import 'package:tractian/features/asset_tree/bloc/asset_tree_event.dart';
-import 'package:tractian/features/asset_tree/bloc/asset_tree_state.dart';
 import 'package:tractian/features/asset_tree/components/expandable_tile.dart';
 import 'package:tractian/features/asset_tree/components/filter_option.dart';
 import 'package:tractian/support/components/default_app_bar.dart';
 import 'package:tractian/support/components/slivers/default_sliver_empty_message.dart';
 import 'package:tractian/support/enums/filter_option_enum.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
+import 'package:tractian/support/enums/view_state_enum.dart';
 import 'package:tractian/support/extensions/context_extensions.dart';
 import 'package:tractian/support/services/service_locator/service_locator.dart';
 import 'package:tractian/support/styles/app_colors.dart';
 
 import '../../support/utils/localize.dart';
+import 'models/base_item.dart';
+
+abstract class AssetTreeViewModelProtocol with ChangeNotifier {
+  FilterOptionEnum? get filterOption;
+  bool get isAssetPathExpanded;
+  String get search;
+  ViewStateEnum get viewState;
+  List<BaseItem> get baseItems;
+
+  void loadContent();
+  void updateSearch(String search);
+  void updateFiterOption(FilterOptionEnum filterOption);
+  bool isFilterOptionSelected(FilterOptionEnum filterOption);
+}
 
 class AssetTreeView extends StatefulWidget {
   final UnitEnum unit;
@@ -26,22 +37,22 @@ class AssetTreeView extends StatefulWidget {
 }
 
 class _AssetTreeViewState extends State<AssetTreeView> {
-  late final AssetTreeBloc bloc;
+  late AssetTreeViewModelProtocol viewModel;
 
   @override
   void initState() {
     super.initState();
-    bloc = ServiceLocator.get<AssetTreeBloc>(param1: widget.unit);
-    bloc.add(AssetTreeLoadAssetsRequested());
+    viewModel = ServiceLocator.get<AssetTreeViewModelProtocol>(param1: widget.unit);
+    viewModel.loadContent();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = Localize.instance.l10n;
 
-    return BlocBuilder<AssetTreeBloc, AssetTreeState>(
-      bloc: bloc,
-      builder: (_, state) {
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (_, __) {
         return GestureDetector(
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
@@ -55,7 +66,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
                       child: TextField(
-                        onChanged: (search) => bloc.add(AssetTreeSearchRequested(search: search)),
+                        onChanged: viewModel.updateSearch,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.grey[200],
@@ -76,10 +87,10 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                         runSpacing: 8,
                         children: FilterOptionEnum.values.map((filter) {
                           return GestureDetector(
-                            onTap: () => bloc.add(AssetTreeFilterOptionRequested(filterOption: filter)),
+                            onTap: () => viewModel.updateFiterOption(filter),
                             child: FilterOption(
                               filterOption: filter,
-                              isSelected: state.isFilterOptionSelected(filter),
+                              isSelected: viewModel.isFilterOptionSelected(filter),
                             ),
                           );
                         }).toList(),
@@ -93,7 +104,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  sliver: _bodyWidget(state, context, l10n),
+                  sliver: _bodyWidget(context, l10n),
                 ),
               ],
             ),
@@ -103,8 +114,8 @@ class _AssetTreeViewState extends State<AssetTreeView> {
     );
   }
 
-  Widget _bodyWidget(AssetTreeState state, BuildContext context, Localization l10n) {
-    if (state.viewState.isLoading) {
+  Widget _bodyWidget(BuildContext context, Localization l10n) {
+    if (viewModel.viewState.isLoading) {
       return SliverList.list(
         children: [
           const SizedBox(height: 40),
@@ -121,7 +132,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
       );
     }
 
-    if (state.viewState.hasError) {
+    if (viewModel.viewState.hasError) {
       return SliverList.list(
         children: [
           const SizedBox(height: 40),
@@ -143,7 +154,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
-              onPressed: () => bloc.add(AssetTreeLoadAssetsRequested()),
+              onPressed: viewModel.loadContent,
               child: Text(
                 l10n.assetTreeTryAgainButton,
                 style: context.headlineSmall?.copyWith(color: AppColors.backgroundColor),
@@ -154,26 +165,26 @@ class _AssetTreeViewState extends State<AssetTreeView> {
       );
     }
 
-    if (state.baseItems.isEmpty && state.search.isEmpty) {
+    if (viewModel.baseItems.isEmpty && viewModel.search.isEmpty) {
       return DefaultSliverEmptyMessage(
         message: l10n.assetTreeEmptyResultLabel,
       );
     }
 
-    if (state.baseItems.isEmpty) {
+    if (viewModel.baseItems.isEmpty) {
       return DefaultSliverEmptyMessage(
         message: l10n.assetTreeEmptySearchLabel,
       );
     }
 
     return SliverList.separated(
-      itemCount: state.baseItems.length,
+      itemCount: viewModel.baseItems.length,
       itemBuilder: (_, index) {
         return ExpandableTile(
-          baseItem: state.baseItems[index],
-          search: state.search,
-          isAssetPathExpanded: state.isAssetPathExpanded,
-          filterOption: state.currentFilterOption,
+          baseItem: viewModel.baseItems[index],
+          search: viewModel.search,
+          isAssetPathExpanded: viewModel.isAssetPathExpanded,
+          filterOption: viewModel.filterOption,
         );
       },
       separatorBuilder: (_, index) {

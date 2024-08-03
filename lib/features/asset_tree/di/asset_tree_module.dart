@@ -1,4 +1,5 @@
-import 'package:tractian/features/asset_tree/bloc/asset_tree_bloc.dart';
+import 'package:tractian/features/asset_tree/asset_tree_view.dart';
+import 'package:tractian/features/asset_tree/asset_tree_view_model.dart';
 import 'package:tractian/features/asset_tree/use_cases/fetch_unit_assets.dart';
 import 'package:tractian/features/asset_tree/use_cases/fetch_unit_locations.dart';
 import 'package:tractian/features/asset_tree/use_cases/unify_assets.dart';
@@ -25,8 +26,8 @@ class AssetTreeModule extends AppModule {
       return UnifyAssetsImpl();
     });
 
-    ServiceLocator.registerFactoryParam<AssetTreeBloc, UnitEnum>((unit) {
-      return AssetTreeBloc(
+    ServiceLocator.registerFactoryParam<AssetTreeViewModelProtocol, UnitEnum>((unit) {
+      return AssetTreeViewModel(
         unit: unit,
         fetchUnitAssets: ServiceLocator.get<FetchUnitAssets>(),
         fetchUnitLocations: ServiceLocator.get<FetchUnitLocations>(),

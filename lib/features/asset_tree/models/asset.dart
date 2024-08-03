@@ -17,7 +17,7 @@ class Asset extends BaseItem {
   });
 
   @override
-  List<BaseItem> get baseItems => subAssets;
+  List<BaseItem> get subBaseItems => subAssets;
 
   @override
   String get icon => isSensorType ? AppImages.icComponent : AppImages.icAsset;

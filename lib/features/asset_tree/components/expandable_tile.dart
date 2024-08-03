@@ -18,7 +18,7 @@ class ExpandableTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subBaseItems = baseItem.baseItems.finalBaseItems(
+    final subBaseItems = baseItem.subBaseItems.finalBaseItems(
       filterOption: filterOption,
       search: search,
     );
@@ -53,9 +53,9 @@ class ExpandableTile extends StatelessWidget {
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
-      children: subBaseItems.map((c) {
+      children: subBaseItems.map((subBaseItem) {
         return ExpandableTile(
-          baseItem: c,
+          baseItem: subBaseItem,
           filterOption: filterOption,
           search: search,
         );

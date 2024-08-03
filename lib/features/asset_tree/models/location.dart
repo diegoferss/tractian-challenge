@@ -14,7 +14,7 @@ class Location extends BaseItem {
   });
 
   @override
-  List<BaseItem> get baseItems => [...subLocations, ...subAssets];
+  List<BaseItem> get subBaseItems => [...subLocations, ...subAssets];
 
   @override
   String get icon => AppImages.icLocation;

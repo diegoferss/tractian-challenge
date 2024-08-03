@@ -2,7 +2,7 @@ abstract class BaseItem {
   final String id;
   final String name;
   final String? parentId;
-  List<BaseItem> get baseItems;
+  List<BaseItem> get subBaseItems;
 
   BaseItem({
     required this.id,

@@ -12,7 +12,7 @@ Esse README contém instruções de como rodar a aplicação mobile do desafio d
 O projeto contém duas branches diferentes para executar a aplicação:
 
 - [main](https://github.com/diegoferss/tractian-challenge/tree/main) - Nessa branch, o projeto foi feito utilizando o package bloc para gerenciamento de estado, reatividade e lidar com interações do usuário;
-- [main-without-bloc](https://github.com/diegoferss/tractian-challenge/tree/main-without-bloc) - Nessa branch, o projeto foi feito utilizando somnente o disponibilizado pelo flutter para gerenciamento de estado, reatividade e lidar com interações do usuário.
+- [main-without-bloc](https://github.com/diegoferss/tractian-challenge/tree/main-without-bloc) - Nessa branch, o projeto foi feito utilizando somente o disponibilizado pelo flutter para gerenciamento de estado, reatividade e lidar com interações do usuário.
 
 Ambas branches irão funcionar da mesma forma, a única diferença é o jeito que foram feitas, sinta-se livre para testar a aplicação em cada uma delas!
 

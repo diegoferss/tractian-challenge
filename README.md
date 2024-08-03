@@ -42,7 +42,7 @@ Rodando a aplicação:
 flutter run
 ```
 
-## Arquitetura do projeto
+## Estrutura do projeto
 
 ```
 root/

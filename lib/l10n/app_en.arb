@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "appTitle": "TRACTIAN",
+
+  "jaguarUnit": "Jaguar Unit",
+  "tobiasUnit": "Tobias Unit",
+  "apexUnit": "Apex Unit",
+
+  "energySensor": "Energy Sensor",
+  "alertStatus": "Critical",
+
+  "assetTreeTitle": "Assets",
+  "assetTreeInputHint": "Search for asset or location",
+  "assetTreeTryAgainButton": "Try Again",
+  "assetTreeErrorLabel": "We encountered an error while fetching the assets for this unit.",
+  "assetTreeLoadingLabel": "Please wait a moment. The asset view will be ready shortly!",
+  "assetTreeEmptyResultLabel": "Unfortunately, we couldn't find any assets at the moment!",
+  "assetTreeEmptySearchLabel": "We couldn't find any assets matching the search, try a different name!"
+}

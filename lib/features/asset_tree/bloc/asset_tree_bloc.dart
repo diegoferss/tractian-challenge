@@ -7,6 +7,7 @@ import 'package:tractian/features/asset_tree/use_cases/fetch_unit_locations.dart
 import 'package:tractian/features/asset_tree/use_cases/unify_assets.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
 import 'package:tractian/support/enums/view_state_enum.dart';
+import 'package:tractian/support/utils/debouncer.dart';
 
 import '../use_cases/fetch_unit_assets.dart';
 
@@ -14,6 +15,7 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   final FetchUnitAssets fetchUnitAssets;
   final FetchUnitLocations fetchUnitLocations;
   final UnifyAssets unifyAssets;
+  final debouncer = Debouncer(duration: const Duration(seconds: 1));
 
   AssetTreeBloc({
     required UnitEnum unit,
@@ -74,8 +76,21 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
   FutureOr<void> _onSearchRequested(
     AssetTreeSearchRequested event,
     Emitter<AssetTreeState> emit,
-  ) {
-    emit(state.copyWith(search: event.search, isAssetPathExpanded: true));
+  ) async {
+    emit(state.copyWith(viewState: ViewStateEnum.loading));
+
+    final completer = Completer();
+
+    debouncer.run(action: () {
+      emit(state.copyWith(
+        search: event.search,
+        isAssetPathExpanded: true,
+        viewState: ViewStateEnum.success,
+      ));
+      completer.complete();
+    });
+
+    await completer.future;
   }
 
   FutureOr<void> _onFilterOptionRequested(

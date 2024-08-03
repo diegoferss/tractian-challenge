@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum FilterOptionEnum {
   energy,
   alert;
 
-  String get filterName {
+  String title(Localization l10n) {
     return switch (this) {
-      energy => 'Sensor de Energia',
-      alert => 'Crítico',
+      energy => l10n.energySensor,
+      alert => l10n.alertStatus,
     };
   }
 

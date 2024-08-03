@@ -1,4 +1,19 @@
 {
   "@@locale": "pt",
-  "appTitle": "TRACTIAN"
+  "appTitle": "TRACTIAN",
+
+  "jaguarUnit": "Jaguar Unit",
+  "tobiasUnit": "Tobias Unit",
+  "apexUnit": "Apex Unit",
+
+  "energySensor": "Sensor de Energia",
+  "alertStatus": "Crítico",
+
+  "assetTreeTitle": "Assets",
+  "assetTreeInputHint": "Buscar ativo ou local",
+  "assetTreeTryAgainButton": "Tentar novamente",
+  "assetTreeErrorLabel": "Tivemos um erro ao buscar os Assets dessa unidade.",
+  "assetTreeLoadingLabel": "Aguarde um momento. A visualização dos Assets ficará pronta logo logo!",
+  "assetTreeEmptyResultLabel": "Infelizmente não conseguimos encontrar nenhum Asset no momento!",
+  "assetTreeEmptySearchLabel": "Não encontramos nenhum Asset que bate com a pesquisa, tente outro nome!"
 }

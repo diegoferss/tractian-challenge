@@ -25,7 +25,6 @@ class FetchUnitAssetsImpl extends FetchUnitAssets {
 
       return Left(assets);
     } on Exception catch (e) {
-      // TODO: Tratar o erro ao mapear os dados
       return Right(e);
     }
   }

@@ -26,7 +26,6 @@ class FetchUnitLocationsImpl extends FetchUnitLocations {
 
       return Left(locations);
     } on Exception catch (e) {
-      // TODO: Tratar o erro ao mapear os dados
       return Right(e);
     }
   }

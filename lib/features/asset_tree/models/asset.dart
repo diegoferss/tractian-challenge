@@ -1,7 +1,7 @@
-import 'package:tractian/features/asset_tree/models/component.dart';
+import 'package:tractian/features/asset_tree/models/base_item.dart';
 import 'package:tractian/support/styles/app_images.dart';
 
-class Asset extends Component {
+class Asset extends BaseItem {
   final String? locationId;
   final String? sensorType;
   final String? status;
@@ -17,7 +17,7 @@ class Asset extends Component {
   });
 
   @override
-  List<Component> get subComponents => subAssets;
+  List<BaseItem> get subBaseItems => subAssets;
 
   @override
   String get icon => isSensorType ? AppImages.icComponent : AppImages.icAsset;

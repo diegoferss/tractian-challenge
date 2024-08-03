@@ -1,9 +1,9 @@
-import 'package:tractian/features/asset_tree/models/component.dart';
+import 'package:tractian/features/asset_tree/models/base_item.dart';
 import 'package:tractian/support/styles/app_images.dart';
 
 import 'asset.dart';
 
-class Location extends Component {
+class Location extends BaseItem {
   final List<Asset> subAssets = [];
   final List<Location> subLocations = [];
 
@@ -14,7 +14,7 @@ class Location extends Component {
   });
 
   @override
-  List<Component> get subComponents => [...subLocations, ...subAssets];
+  List<BaseItem> get subBaseItems => [...subLocations, ...subAssets];
 
   @override
   String get icon => AppImages.icLocation;

@@ -87,10 +87,10 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   sliver: SliverList.separated(
-                    itemCount: state.components.length,
+                    itemCount: state.baseItems.length,
                     itemBuilder: (_, index) {
                       return ExpandableTile(
-                        component: state.components[index],
+                        baseItem: state.baseItems[index],
                         search: state.search,
                         filterOption: state.currentFilterOption,
                       );

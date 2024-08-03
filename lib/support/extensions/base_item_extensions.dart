@@ -34,8 +34,8 @@ extension BaseItemExtensions on List<BaseItem> {
     if (isAsset && (baseItem.sensorType == filter.name || baseItem.status == filter.name)) return true;
     if (isAsset && baseItem.sensorType != filter.name && baseItem.isSensorType) return false;
 
-    return baseItem.subBaseItems.any((c) {
-      return _hasAsset(c, filter);
+    return baseItem.subBaseItems.any((subBaseItem) {
+      return _hasAsset(subBaseItem, filter);
     });
   }
 
@@ -45,8 +45,8 @@ extension BaseItemExtensions on List<BaseItem> {
     if (isSearchedBaseItem) return true;
     if (!isSearchedBaseItem && baseItems.subBaseItems.isEmpty) return false;
 
-    return baseItems.subBaseItems.any((c) {
-      return _hasSearchTerm(c, search);
+    return baseItems.subBaseItems.any((subBaseItem) {
+      return _hasSearchTerm(subBaseItem, search);
     });
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
 import 'package:tractian/support/extensions/context_extensions.dart';
 import 'package:tractian/support/router/routes.dart';
+import 'package:tractian/support/utils/localize.dart';
 
 import '../../../support/styles/app_colors.dart';
 
@@ -18,6 +19,8 @@ class UnitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = Localize.instance.l10n;
+
     return ElevatedButton(
       onPressed: () {
         context.pushNamed(route: Routes.assetTree, arguments: unit);
@@ -39,7 +42,7 @@ class UnitButton extends StatelessWidget {
           const SizedBox(width: 20),
           Expanded(
             child: Text(
-              unit.title,
+              unit.title(l10n),
               style: context.headlineSmall?.copyWith(color: AppColors.backgroundColor),
             ),
           ),

@@ -10,7 +10,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DefaultAppBar({
     super.key,
     required this.title,
-    this.toolbarHeight = kToolbarHeight,
+    this.toolbarHeight = 72,
   });
 
   @override

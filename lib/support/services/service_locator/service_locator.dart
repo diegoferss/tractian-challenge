@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:tractian/features/asset_tree/di/asset_tree_module.dart';
 import 'package:tractian/support/services/service_locator/app_module.dart';
 import 'package:tractian/support/services/service_locator/commons_module.dart';
 
@@ -27,6 +28,7 @@ class ServiceLocator {
 void initializeDependencies() {
   final modules = <AppModule>[
     CommonsModule(),
+    AssetTreeModule(),
   ];
 
   for (final module in modules) {

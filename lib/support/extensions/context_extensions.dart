@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:tractian/support/router/routes.dart';
 
 extension ContextExtension on BuildContext {
   Future<T?> push<T>({required Widget page, Object? arguments}) {
@@ -10,12 +11,16 @@ extension ContextExtension on BuildContext {
     );
   }
 
-  Future<T?> pushNamed<T>({required String routeName, Object? arguments}) {
+  Future<T?> pushNamed<T>({required Routes route, Object? arguments}) {
     return Navigator.pushNamed<T>(
       this,
-      routeName,
+      route.path,
       arguments: arguments,
     );
+  }
+
+  T getRouteArgument<T>() {
+    return ModalRoute.of(this)?.settings.arguments as T;
   }
 
   Color get primaryColor {

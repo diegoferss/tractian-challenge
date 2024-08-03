@@ -10,6 +10,7 @@ class AppThemes {
     scaffoldBackgroundColor: AppColors.backgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.colorTheme,
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
       primary: AppColors.textColor,

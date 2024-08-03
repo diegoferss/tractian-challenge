@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
 import 'package:tractian/support/extensions/context_extensions.dart';
+import 'package:tractian/support/router/routes.dart';
 
 import '../../../support/styles/app_colors.dart';
 
@@ -19,7 +20,7 @@ class UnitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        context.push(page: Container(color: Colors.red));
+        context.pushNamed(route: Routes.assetTree, arguments: unit);
       },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 32),

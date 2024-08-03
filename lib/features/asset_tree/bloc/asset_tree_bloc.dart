@@ -84,6 +84,10 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
     AssetTreeFilterOptionRequested event,
     Emitter<AssetTreeState> emit,
   ) {
-    emit(state.copyWith(currentFilterOption: event.filterOption));
+    if (state.currentFilterOption == event.filterOption) {
+      emit(state.removeFilterOption());
+    } else {
+      emit(state.copyWith(currentFilterOption: event.filterOption));
+    }
   }
 }

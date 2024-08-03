@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:tractian/features/asset_tree/models/asset.dart';
 import 'package:tractian/features/asset_tree/models/component.dart';
+import 'package:tractian/support/enums/filter_option_enum.dart';
+import 'package:tractian/support/extensions/component_extensions.dart';
 
 class ExpandableTile extends StatelessWidget {
   final Component component;
+  final FilterOptionEnum? filterOption;
 
   const ExpandableTile({
     super.key,
     required this.component,
+    this.filterOption,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (component.subComponents.isEmpty) {
+    final subComponents = component.subComponents.filteredComponents(
+      filterOption: filterOption,
+    );
+
+    if (subComponents.isEmpty) {
       return ListTile(
         leading: Image.asset(component.icon),
         title: Text(
@@ -42,8 +50,11 @@ class ExpandableTile extends StatelessWidget {
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
-      children: component.subComponents.map((c) {
-        return ExpandableTile(component: c);
+      children: subComponents.map((c) {
+        return ExpandableTile(
+          component: c,
+          filterOption: filterOption,
+        );
       }).toList(),
     );
   }

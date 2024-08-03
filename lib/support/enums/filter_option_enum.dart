@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 enum FilterOptionEnum {
-  energySensor,
-  critical;
+  energy,
+  alert;
 
   String get filterName {
     return switch (this) {
-      energySensor => 'Sensor de Energia',
-      critical => 'Crítico',
+      energy => 'Sensor de Energia',
+      alert => 'Crítico',
     };
   }
 
   IconData get icon {
     return switch (this) {
-      energySensor => Icons.flash_off,
-      critical => Icons.dangerous,
+      energy => Icons.flash_off,
+      alert => Icons.dangerous,
     };
   }
 }

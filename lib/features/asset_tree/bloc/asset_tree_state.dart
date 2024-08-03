@@ -1,8 +1,10 @@
 import 'package:tractian/features/asset_tree/models/asset.dart';
+import 'package:tractian/features/asset_tree/models/component.dart';
 import 'package:tractian/features/asset_tree/models/location.dart';
 import 'package:tractian/support/enums/filter_option_enum.dart';
 import 'package:tractian/support/enums/unit_enum.dart';
 import 'package:tractian/support/enums/view_state_enum.dart';
+import 'package:tractian/support/extensions/component_extensions.dart';
 
 class AssetTreeState {
   final UnitEnum unit;
@@ -52,5 +54,11 @@ class AssetTreeState {
 
   bool isFilterOptionSelected(FilterOptionEnum filterOption) {
     return filterOption == currentFilterOption;
+  }
+
+  List<Component> get components {
+    final mergedComponents = <Component>[...locations, ...assets];
+
+    return mergedComponents.filteredComponents(filterOption: currentFilterOption);
   }
 }

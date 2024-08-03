@@ -87,21 +87,12 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   sliver: SliverList.separated(
-                    itemCount: state.locations.length,
+                    itemCount: state.components.length,
                     itemBuilder: (_, index) {
-                      return ExpandableTile(component: state.locations[index]);
-                    },
-                    separatorBuilder: (_, index) {
-                      return const SizedBox(height: 20);
-                    },
-                  ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
-                  sliver: SliverList.separated(
-                    itemCount: state.assets.length,
-                    itemBuilder: (_, index) {
-                      return ExpandableTile(component: state.assets[index]);
+                      return ExpandableTile(
+                        component: state.components[index],
+                        filterOption: state.currentFilterOption,
+                      );
                     },
                     separatorBuilder: (_, index) {
                       return const SizedBox(height: 20);

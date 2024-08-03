@@ -1,3 +1,7 @@
+import 'package:tractian/features/asset_tree/models/asset.dart';
+
+import 'location.dart';
+
 abstract class BaseItem {
   final String id;
   final String name;
@@ -11,4 +15,14 @@ abstract class BaseItem {
   });
 
   String get icon;
+
+  bool get hasParent {
+    final item = this;
+
+    return switch (item) {
+      Asset(:final locationId) => parentId != null || locationId != null,
+      Location(:final parentId) => parentId != null,
+      _ => false,
+    };
+  }
 }

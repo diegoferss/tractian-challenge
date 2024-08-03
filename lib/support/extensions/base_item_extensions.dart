@@ -11,15 +11,26 @@ extension BaseItemExtensions on List<BaseItem> {
   }
 
   List<BaseItem> searchedBaseItems({String search = '', FilterOptionEnum? filter}) {
-    if (search.isEmpty) return this;
+    if (search.isEmpty || isEmpty) return this;
 
     final searchedItems = where((baseItem) {
       return _hasSearchTerm(baseItem, search, filter);
     }).toList();
 
-    if (searchedItems.isEmpty) return this;
+    if (searchedItems.isEmpty && first.hasParent) return this;
 
     return searchedItems;
+  }
+
+  bool _hasSearchTerm(BaseItem baseItem, String search, FilterOptionEnum? filter) {
+    final isSearchedBaseItem = baseItem.name.toLowerCase().contains(search.toLowerCase());
+    final hasAsset = filter == null || _hasAsset(baseItem, filter);
+
+    if (isSearchedBaseItem && hasAsset) return true;
+
+    return baseItem.subBaseItems.any((subBaseItem) {
+      return _hasSearchTerm(subBaseItem, search, filter);
+    });
   }
 
   List<BaseItem> filteredBaseItems({FilterOptionEnum? filterOption}) {
@@ -40,18 +51,6 @@ extension BaseItemExtensions on List<BaseItem> {
 
     return baseItem.subBaseItems.any((subBaseItem) {
       return _hasAsset(subBaseItem, filter);
-    });
-  }
-
-  bool _hasSearchTerm(BaseItem baseItem, String search, FilterOptionEnum? filter) {
-    final isSearchedBaseItem = baseItem.name.toLowerCase().contains(search.toLowerCase());
-
-    if (isSearchedBaseItem && baseItem.subBaseItems.isNotEmpty) return true;
-    if (isSearchedBaseItem && (filter == null || _hasAsset(baseItem, filter))) return true;
-    if (!isSearchedBaseItem && baseItem.subBaseItems.isEmpty) return false;
-
-    return baseItem.subBaseItems.any((subBaseItem) {
-      return _hasSearchTerm(subBaseItem, search, filter);
     });
   }
 }

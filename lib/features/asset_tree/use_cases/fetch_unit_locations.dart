@@ -22,7 +22,7 @@ class FetchUnitLocationsImpl extends FetchUnitLocations {
   FutureOr<LocationsResult> call({required String jsonPath}) async {
     try {
       final data = await jsonReader.read(path: jsonPath);
-      final locations = LocationAdapter.fromMaps(data);
+      final locations = await LocationAdapter.fromMaps(data);
 
       return Left(locations);
     } on Exception catch (e) {

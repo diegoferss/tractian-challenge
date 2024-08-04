@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:tractian/features/asset_tree/models/asset.dart';
 
 class AssetAdapter {
@@ -14,7 +16,9 @@ class AssetAdapter {
     );
   }
 
-  static List<Asset> fromMaps(List<dynamic> maps) {
-    return maps.map((map) => fromMap(map)).toList();
+  static Future<List<Asset>> fromMaps(List<dynamic> maps) async {
+    return await Isolate.run<List<Asset>>(() {
+      return maps.map((map) => fromMap(map)).toList();
+    });
   }
 }

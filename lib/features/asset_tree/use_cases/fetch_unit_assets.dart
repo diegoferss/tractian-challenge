@@ -21,7 +21,7 @@ class FetchUnitAssetsImpl extends FetchUnitAssets {
   FutureOr<AssetsResult> call({required String jsonPath}) async {
     try {
       final data = await jsonReader.read(path: jsonPath);
-      final assets = AssetAdapter.fromMaps(data);
+      final assets = await AssetAdapter.fromMaps(data);
 
       return Left(assets);
     } on Exception catch (e) {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:isolate';
 
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,8 @@ class JsonReaderImpl extends JsonReader {
   @override
   Future<List<dynamic>> read({required String path}) async {
     final json = await rootBundle.loadString(path);
-    return jsonDecode(json);
+    return await Isolate.run<List<dynamic>>(() {
+      return jsonDecode(json);
+    });
   }
 }

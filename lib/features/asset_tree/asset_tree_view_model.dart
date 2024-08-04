@@ -97,6 +97,7 @@ class AssetTreeViewModel extends AssetTreeViewModelProtocol {
 
   FutureOr<void> _initializeState() async {
     _viewState = ViewStateEnum.loading;
+    notifyListeners();
 
     await _getLocations();
 
@@ -106,7 +107,7 @@ class AssetTreeViewModel extends AssetTreeViewModelProtocol {
 
     if (_viewState.hasError) return;
 
-    final result = unifyAssets(assets: (locations: _locations, assets: _assets));
+    final result = await unifyAssets(assets: (locations: _locations, assets: _assets));
 
     _locations.updateList(newList: result.locations);
     _assets.updateList(newList: result.assets);

@@ -58,7 +58,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                         onChanged: (search) => bloc.add(AssetTreeSearchRequested(search: search)),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.grey[200],
+                          fillColor: AppColors.lightGrey,
                           hintText: l10n.assetTreeInputHint,
                           prefixIcon: const Icon(Icons.search),
                           contentPadding: const EdgeInsets.symmetric(vertical: 12),
@@ -87,7 +87,7 @@ class _AssetTreeViewState extends State<AssetTreeView> {
                     ),
                     Divider(
                       height: 12,
-                      color: Colors.grey[200],
+                      color: AppColors.lightGrey,
                     ),
                   ],
                 ),

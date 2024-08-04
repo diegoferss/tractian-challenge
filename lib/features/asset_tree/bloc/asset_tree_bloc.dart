@@ -42,9 +42,13 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
 
     if (state.viewState == ViewStateEnum.error) return;
 
-    final result = unifyAssets(assets: (locations: state.locations, assets: state.assets));
+    final result = await unifyAssets(assets: (locations: state.locations, assets: state.assets));
 
-    emit(state.copyWith(locations: result.locations, assets: result.assets));
+    emit(state.copyWith(
+      locations: result.locations,
+      assets: result.assets,
+      viewState: ViewStateEnum.success,
+    ));
   }
 
   FutureOr<void> _getLocations(Emitter<AssetTreeState> emit) async {
@@ -65,7 +69,7 @@ class AssetTreeBloc extends Bloc<AssetTreeEvent, AssetTreeState> {
 
     result.fold(
       (assets) {
-        emit(state.copyWith(assets: assets, viewState: ViewStateEnum.success));
+        emit(state.copyWith(assets: assets));
       },
       (exception) {
         emit(state.copyWith(viewState: ViewStateEnum.error));

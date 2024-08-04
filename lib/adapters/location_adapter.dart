@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:tractian/features/asset_tree/models/location.dart';
 
 class LocationAdapter {
@@ -11,7 +13,9 @@ class LocationAdapter {
     );
   }
 
-  static List<Location> fromMaps(List<dynamic> maps) {
-    return maps.map((map) => fromMap(map)).toList();
+  static Future<List<Location>> fromMaps(List<dynamic> maps) async {
+    return await Isolate.run<List<Location>>(() {
+      return maps.map((map) => fromMap(map)).toList();
+    });
   }
 }

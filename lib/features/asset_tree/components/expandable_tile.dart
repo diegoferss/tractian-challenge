@@ -3,6 +3,7 @@ import 'package:tractian/features/asset_tree/models/asset.dart';
 import 'package:tractian/features/asset_tree/models/base_item.dart';
 import 'package:tractian/support/enums/filter_option_enum.dart';
 import 'package:tractian/support/extensions/base_item_extensions.dart';
+import 'package:tractian/support/styles/app_colors.dart';
 
 class ExpandableTile extends StatelessWidget {
   final BaseItem baseItem;
@@ -37,9 +38,9 @@ class ExpandableTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (baseItem case Asset(:final sensorType) when sensorType == 'energy')
-              const Icon(Icons.flash_on, size: 20, color: Colors.green),
+              const Icon(Icons.flash_on, size: 20, color: AppColors.green),
             if (baseItem case Asset(:final status) when status == 'alert')
-              const Icon(Icons.circle, size: 12, color: Colors.red),
+              const Icon(Icons.circle, size: 12, color: AppColors.red),
           ],
         ),
       );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tractian/support/enums/filter_option_enum.dart';
 import 'package:tractian/support/extensions/context_extensions.dart';
+import 'package:tractian/support/styles/app_colors.dart';
 import 'package:tractian/support/utils/localize.dart';
 
 class FilterOption extends StatelessWidget {
@@ -16,9 +17,9 @@ class FilterOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = Localize.instance.l10n;
-    final backgroundColor = isSelected ? Colors.lightBlue : Colors.white;
-    final itemsColor = isSelected ? Colors.white : Colors.grey;
-    final borderColor = isSelected ? Colors.blue : Colors.grey;
+    final backgroundColor = isSelected ? AppColors.lightBlue : AppColors.backgroundColor;
+    final itemsColor = isSelected ? AppColors.backgroundColor : AppColors.grey;
+    final borderColor = isSelected ? AppColors.blue : AppColors.grey;
     final fontWeight = isSelected ? FontWeight.bold : FontWeight.normal;
 
     return Chip(
